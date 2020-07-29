@@ -478,36 +478,36 @@ class LateFusion(nn.Module):
         if audio and video:
             self.dense = nn.Sequential(nn.Dropout(self.post_fusion_prob),
             nn.Linear(self.audio_hidden+self.video_hidden+self.text_hidden, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
             nn.ReLU(),
             nn.Linear(self.post_fusion_dim, out_dim))
         elif audio:
             self.dense = nn.Sequential(nn.Dropout(self.post_fusion_prob),
             nn.Linear(self.audio_hidden+self.text_hidden, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
             nn.ReLU(),
             nn.Linear(self.post_fusion_dim, out_dim))
         elif video:
             self.dense = nn.Sequential(nn.Dropout(self.post_fusion_prob),
             nn.Linear(self.video_hidden+self.text_hidden, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
             nn.ReLU(),
             nn.Linear(self.post_fusion_dim, out_dim))
         else:
             self.dense = nn.Sequential(nn.Dropout(self.post_fusion_prob),
             nn.Linear(self.text_hidden, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
             nn.ReLU(),
             nn.Linear(self.post_fusion_dim, out_dim))
@@ -554,36 +554,36 @@ class EarlyFusion(nn.Module):
         if audio and video:
             self.dense = nn.Sequential(nn.Dropout(self.post_fusion_prob),
             nn.Linear(self.audio_in+self.video_in+self.text_in, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
             nn.ReLU(),
             nn.Linear(self.post_fusion_dim, out_dim))
         elif audio:
             self.dense = nn.Sequential(nn.Dropout(self.post_fusion_prob),
             nn.Linear(self.audio_in+self.text_in, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
             nn.ReLU(),
             nn.Linear(self.post_fusion_dim, out_dim))
         elif video:
             self.dense = nn.Sequential(nn.Dropout(self.post_fusion_prob),
             nn.Linear(self.video_in+self.text_in, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
             nn.ReLU(),
             nn.Linear(self.post_fusion_dim, out_dim))
         else:
             self.dense = nn.Sequential(nn.Dropout(self.post_fusion_prob),
             nn.Linear(self.text_in, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
-            nn.ReLU,
+            nn.ReLU(),
             nn.Linear(self.post_fusion_dim, self.post_fusion_dim),
             nn.ReLU(),
             nn.Linear(self.post_fusion_dim, out_dim))
