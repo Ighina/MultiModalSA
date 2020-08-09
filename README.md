@@ -47,12 +47,14 @@ Some additional examples can be derived by the four folders for the four availab
 
 # Remarks
 To use this repository in publications, please cite the original paper for CMU-MOSEI dataset:
+---
 @inproceedings{zadeh2018multi,
   title={Multi-attention recurrent network for human communication comprehension},
   author={Zadeh, Amir and Liang, Paul Pu and Poria, Soujanya and Vij, Prateek and Cambria, Erik and Morency, Louis-Philippe},
   booktitle={Thirty-Second AAAI Conference on Artificial Intelligence},
   year={2018}
 }
+---
 All data end extracted features were obtained from the original repository at [https://github.com/A2Zadeh/CMU-MultimodalSDK](https://github.com/A2Zadeh/CMU-MultimodalSDK).
 
 Codes are partly based on different sources. TensorFusion model is adapted from [https://github.com/Justin1904/TensorFusionNetworks](https://github.com/Justin1904/TensorFusionNetworks), while the biggest contribution for the Train.py function comes from [http://mccormickml.com/2019/07/22/BERT-fine-tuning/](http://mccormickml.com/2019/07/22/BERT-fine-tuning/).
