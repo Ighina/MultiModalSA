@@ -42,3 +42,17 @@ Some example of how the Hyperparameters.json file can be modified to achieve dif
 - Change audio features file (same for video features file): Change "--audio_file": "COAVAREP_aligned_MOSEI.pkl" to "--audio_file": "{new_audio_file_name}.pkl" (the new audio file must be a pkl file containing a dictionary with the opinion segments' ids as keys and the relative features as values)
 
 - Change text features file: Change "--text_file": "BERT_MOSEI.pkl" to "--text_file": "{new_text_file_name}.pkl" (currently, the text file needs to be a dictionary having "data" as key and, as the relative value, a list with all the sentence-level features in sequential order, according to how they appear in the training, validation and test .tsv files)
+
+Some additional examples can be derived by the four folders for the four available architectures, containing the relative Hyperparameters.json file and the pre-trained models.
+
+# Remarks
+To use this repository in publications, please cite the original paper for CMU-MOSEI dataset:
+@inproceedings{zadeh2018multi,
+  title={Multi-attention recurrent network for human communication comprehension},
+  author={Zadeh, Amir and Liang, Paul Pu and Poria, Soujanya and Vij, Prateek and Cambria, Erik and Morency, Louis-Philippe},
+  booktitle={Thirty-Second AAAI Conference on Artificial Intelligence},
+  year={2018}
+}
+All data end extracted features were obtained from the original repository at [https://github.com/A2Zadeh/CMU-MultimodalSDK](https://github.com/A2Zadeh/CMU-MultimodalSDK).
+
+Codes are partly based on different sources. TensorFusion model is adapted from [https://github.com/Justin1904/TensorFusionNetworks](https://github.com/Justin1904/TensorFusionNetworks), while the biggest contribution for the Train.py function comes from [http://mccormickml.com/2019/07/22/BERT-fine-tuning/](http://mccormickml.com/2019/07/22/BERT-fine-tuning/).
