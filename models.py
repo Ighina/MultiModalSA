@@ -61,8 +61,12 @@ class RNN(nn.Module):
         
         if self.bidirectional:
             self.output = nn.Linear(hidden_size*2,labels)
+            self.polarity = nn.Linear(hidden_size*2,2) # option to perform multitask learning with polarity of the sentence
+            self.arousal = nn.Linear(hidden_size*2, 4) # option to perform multitask learning with arousal of the sentence
         else:
             self.output = nn.Linear(hidden_size, labels)
+            self.polarity = nn.Linear(hidden_size,2) # option to perform multitask learning with polarity of the sentence
+            self.arousal = nn.Linear(hidden_size, 4) # option to perform multitask learning with arousal of the sentence
         
         
         
@@ -357,6 +361,8 @@ class AttentionLayer(nn.Module):
             attn_scores = self.score(tgt_input, encoder_out)
             
             if modified_attention:
+                
+                attn_weights = attn_scores
             
                 attn_context = torch.bmm(attn_scores, encoder_out).squeeze(dim=1)
             
@@ -472,7 +478,7 @@ class LateFusion(nn.Module):
             self.audio_subnet = SubNet(self.audio_in, self.audio_hidden, self.audio_prob)
         if video:
             self.video_subnet = SubNet(self.video_in, self.video_hidden, self.video_prob)
-        self.text_subnet = TextSubNet(self.text_in, self.text_hidden, self.text_out, dropout=self.text_prob)
+        self.text_subnet = TextSubNet(self.text_in, self.text_out, dropout=self.text_prob)
 
         # define the post_fusion layers
         if audio and video:
