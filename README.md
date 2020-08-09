@@ -3,11 +3,19 @@ MultiModal Sentiment Analysis architectures for CMU-MOSEI.
 
 # Description
 
-The repository contains four multimodal architectures and relative training and test functions for sentiment analysis on CMU-MOSEI. Inside the data folder, transcriptions and labels are provided for the standard training, validation and test sentences as from the [original repository](https://github.com/A2Zadeh/CMU-MultimodalSDK/tree/master/mmsdk/mmdatasdk/dataset/standard_datasets/CMU_MOSEI). BERT embeddings (text modality), COVAREP features (audio modality) and FACET features (video modality) can be extracted using the relative functions in the utils folder, which save them in the data folder.
+The repository contains four multimodal architectures and relative training and test functions for sentiment analysis on CMU-MOSEI. Inside the data folder, transcriptions and labels are provided for the standard training, validation and test sentences as from the [original repository](https://github.com/A2Zadeh/CMU-MultimodalSDK/tree/master/mmsdk/mmdatasdk/dataset/standard_datasets/CMU_MOSEI). BERT embeddings (text modality), COVAREP features (audio modality) and FACET features (video modality) can be downloaded via the following links:
+
+- BERT embeddings: https://drive.google.com/file/d/13y2xoO1YlDrJ4Be2X6kjtMzfRBs7tBRg/view?usp=sharing
+- COVAREP: https://drive.google.com/file/d/1XpRN8xoEMKxubBHaNyEivgRbnVY2iazu/view?usp=sharing
+- FACET: https://drive.google.com/file/d/1BSjMfKm7FQM8n3HHG5Gn9-dTifULC_Ws/view?usp=sharing
+
+After downloading, move the files to the data folder, before using the programme.
+
+To extract your own features, follow the procedure as described in the [original repository](https://github.com/A2Zadeh/CMU-MultimodalSDK). The programme as it is now requires the extracted features to be in a specific format (see later the examples for how to change the Hyperparameters.json file): if a different format is needed change the relative lines in the Train.py and Test.py functions.
 
 # Usage
 
-The programme allows for the creation of separate experiment folders, so that different hyperparameters/models can be tested. After having extracted the features and having installed all the required libraries, an experiment folder can be created with the following line in the terminal:
+The programme allows for the creation of separate experiment folders, so that different hyperparameters/models can be tested. After having downloaded/extracted the features and having installed all the required libraries, an experiment folder can be created with the following line in the terminal:
 ```
 Prepare_workspace.py -name {new_experiment_folder_name}
 ```
