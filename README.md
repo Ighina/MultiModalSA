@@ -24,7 +24,7 @@ After having created the experiment folder, the model as specified in the Hyperp
 ```
 run.py -folder {new_experiment_folder_name}
 ```
-When training is complete and if the save_model option is set to TRUE in the Hyoerparameters.json file, then the trained model can be tested on test data with the following line:
+When training is complete and if the save_model option is set to TRUE in the Hyperparameters.json file, then the trained model can be tested on test data with the following line:
 ```
 run_test.py -folder {new_experiment_folder_name}
 ```
