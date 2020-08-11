@@ -33,7 +33,7 @@ The function prints the results on the terminal, but the option save_output in t
 # Hyperparameters
 The Hyperparameters.json file is copied into each new experiment folder when the Prepare_workspace.py function is called and it can be changed in order to experiment different parameters/architectures. The master file (i.e. the one that is copied in the new experiment folder) already contains all the options and default values for them, acting as a template. If the options are not changed, the run.py function will train the attention-based model with the pre-specified hyperparameters. By running the following line in the terminal, a description of all available options will be printed out:
 ```
-Train.py -h
+python Train.py -h
 ```
 Some example of how the Hyperparameters.json file can be modified to achieve different results is included below:
 
