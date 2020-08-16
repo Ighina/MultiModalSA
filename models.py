@@ -273,7 +273,7 @@ class AttentionMultiModal(nn.Module):
             self.text2audio = nn.Linear(text_shape, audio_shape)
             self.attn_audio = AttentionLayer(audio_shape, attn_project, attn_bias = attn_bias, drop_in = drop_in)
             self.video = ConvolNet(video_shape, video_shape*2)
-            self.text_2_video = nn.Linear(text_shape, video_shape)
+            self.text2video = nn.Linear(text_shape, video_shape)
             self.attn_video = AttentionLayer(video_shape, attn_project, attn_bias = attn_bias, drop_in = drop_in)
         
         elif convolutional:
@@ -282,7 +282,7 @@ class AttentionMultiModal(nn.Module):
             self.text2audio = nn.Linear(text_shape, hidden_encoder_audio)
             self.attn_audio = AttentionLayer(hidden_encoder_audio, attn_project, attn_bias = attn_bias, drop_in = drop_in)
             self.video = ConvolNet(video_shape, hidden_encoder_video, kern)
-            self.text_2_video = nn.Linear(text_shape, hidden_encoder_video)
+            self.text2video = nn.Linear(text_shape, hidden_encoder_video)
             self.attn_video = AttentionLayer(hidden_encoder_video, attn_project, attn_bias = attn_bias, drop_in = drop_in)
             
         else:
