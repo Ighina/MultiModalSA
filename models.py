@@ -170,22 +170,25 @@ def column_gatherer(y_out, lengths):
     return torch.stack(out)
 
 class PositionalEncoding(nn.Module):
-    """Class for creating and applying positional encodings to be used for transformer architectures:
-        code is derived from https://pytorch.org/tutorials/beginner/transformer_tutorial.html"""
-    def __init__(self, d_model, dropout=0.1, max_len=5000):
+
+    def __init__(self, d_model, dropout=0.1, max_len=500):
         super(PositionalEncoding, self).__init__()
         self.dropout = nn.Dropout(p=dropout)
 
         pe = torch.zeros(max_len, d_model)
-        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
-        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
-        pe[:, 0::2] = torch.sin(position * div_term)
-        pe[:, 1::2] = torch.cos(position * div_term)
-        pe = pe.unsqueeze(0).transpose(0, 1)
-        self.register_buffer('pe', pe)
-
+        for pos in range(max_len):
+              for i in range(0, d_model, 2):
+                  pe[pos, i] = \
+                  math.sin(pos / (10000 ** ((2 * i)/d_model)))
+                  try:
+                    pe[pos, i + 1] = \
+                    math.cos(pos / (10000 ** ((2 * (i + 1))/d_model)))
+                  except IndexError:
+                    pass
+        self.pe = pe
+    
     def forward(self, x):
-        x = x + self.pe[:x.size(0), :]
+        x = x + self.pe[:x.size(1), :]
         return self.dropout(x)
 
 class Transformer(nn.Module):
@@ -200,7 +203,7 @@ class Transformer(nn.Module):
         self.in_dim = in_dim
         self.drop_out = drop_out
         
-    def forward(self, src):
+    def forward(self, src, line_len=None):
         src = src * math.sqrt(self.in_dim)
         src = self.pos_encoder(src)
         output = self.transformer_encoder(src)
@@ -255,11 +258,11 @@ class AttentionMultiModal(nn.Module):
             self.out = nn.Linear(attn_project, out_dim)
         
         if transformer:
-            self.audio_heads = max([i for i in range(audio_shape) if audio_shape%i==0])
+            self.audio_heads = max([i for i in range(1,audio_shape) if audio_shape%i==0])
             self.audio = Transformer(audio_shape, hidden_encoder_audio, self.audio_heads, nlayers, drop_enc_in)
             self.text2audio = nn.Linear(text_shape, audio_shape)
             self.attn_audio = AttentionLayer(audio_shape, attn_project, attn_bias = attn_bias, drop_in = drop_in)
-            self.video_heads = max([i for i in range(video_shape) if video_shape%i==0])
+            self.video_heads = max([i for i in range(1,video_shape) if video_shape%i==0])
             self.video = Transformer(video_shape, hidden_encoder_video, self.video_heads, nlayers, drop_enc_in)
             self.text2video = nn.Linear(text_shape, video_shape)
             self.attn_video = AttentionLayer(video_shape, attn_project, attn_bias = attn_bias, drop_in = drop_in)
