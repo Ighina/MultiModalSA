@@ -474,7 +474,7 @@ class LateFusion(nn.Module):
         self.audio_prob = drop_audio
         self.video_prob = drop_video
         self.text_prob = drop_text
-        self.post_fusion_prob = 0.2
+        self.post_fusion_prob = drop_post_fusion
     
         # define the pre-fusion subnetworks
         if audio:
@@ -551,7 +551,7 @@ class LateFusion(nn.Module):
     
 class EarlyFusion(nn.Module):
     """Class implementing early fusion architecture for CMU-MOSEI"""
-    def __init__(self, audio= True, video= True, drop_in = 0.2, hidden_dim = 32,
+    def __init__(self, audio= True, video= True, drop_in = 0.2, drop_post_fusion=0.2, hidden_dim = 32,
                  audio_shape = 74, video_shape = 35, text_shape = 768, out_dim=1):
         super(EarlyFusion, self).__init__()
         self.audio_in = audio_shape
@@ -559,7 +559,7 @@ class EarlyFusion(nn.Module):
         self.text_in = text_shape
         self.post_fusion_dim = hidden_dim
         self.out_dim = out_dim
-        self.post_fusion_prob = 0.2
+        self.post_fusion_prob = drop_post_fusion
         if audio and video:
             self.dense = nn.Sequential(nn.Dropout(self.post_fusion_prob),
             nn.Linear(self.audio_in+self.video_in+self.text_in, self.post_fusion_dim),
