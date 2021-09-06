@@ -199,14 +199,18 @@ class Transformer(nn.Module):
         self.model_type = 'Transformer'
         self.pos_encoder = PositionalEncoding(in_dim, dropout)
         encoder_layers = nn.TransformerEncoderLayer(in_dim, n_heads, h_dim, dropout)
-        self.transformer_encoder = nn.TransformerEncoder(encoder_layers, n_layers, norm=nn.LayerNorm(in_dim))
+        self.transformer_encoder = nn.TransformerEncoder(encoder_layers, n_layers, norm=nn.LayerNorm(in_dim), batch_first = True)
         self.in_dim = in_dim
         self.drop_out = drop_out
         
     def forward(self, src, line_len=None):
         src = src * math.sqrt(self.in_dim)
         src = self.pos_encoder(src)
-        output = self.transformer_encoder(src)
+        if line_len is not None:
+            mask = create_mask(src, line_len)
+        else:
+            mask = None
+        output = self.transformer_encoder(src, src_key_padding_mask = mask)
         if self.drop_out:
             output = F.dropout(output, p = self.drop_out)
         return src, output
