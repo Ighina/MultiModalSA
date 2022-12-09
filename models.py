@@ -185,7 +185,7 @@ class PositionalEncoding(nn.Module):
                     math.cos(pos / (10000 ** ((2 * (i + 1))/d_model)))
                   except IndexError:
                     pass
-        self.pe = pe
+        self.register_buffer('pe', pe, persistent=False)
     
     def forward(self, x):
         x = x + self.pe[:x.size(1), :]
@@ -207,7 +207,7 @@ class Transformer(nn.Module):
         src = src * math.sqrt(self.in_dim)
         src = self.pos_encoder(src)
         if line_len is not None:
-            mask = create_mask(src, line_len)
+            mask = create_mask(src, line_len).to(src.device)
         else:
             mask = None
         N, S = src.shape[0], src.shape[1]
