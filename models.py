@@ -199,7 +199,7 @@ class Transformer(nn.Module):
         self.model_type = 'Transformer'
         self.pos_encoder = PositionalEncoding(in_dim, dropout)
         encoder_layers = nn.TransformerEncoderLayer(in_dim, n_heads, h_dim, dropout)
-        self.transformer_encoder = nn.TransformerEncoder(encoder_layers, n_layers, norm=nn.LayerNorm(in_dim), batch_first = True)
+        self.transformer_encoder = nn.TransformerEncoder(encoder_layers, n_layers, norm=nn.LayerNorm(in_dim))
         self.in_dim = in_dim
         self.drop_out = drop_out
         
@@ -210,9 +210,13 @@ class Transformer(nn.Module):
             mask = create_mask(src, line_len)
         else:
             mask = None
+        N, S = src.shape[0], src.shape[1]
+        src = src.contiguous().view(S, N,-1)
         output = self.transformer_encoder(src, src_key_padding_mask = mask)
         if self.drop_out:
             output = F.dropout(output, p = self.drop_out)
+        output = output.contiguous().view(N, S,-1)
+        src = src.contiguous().view(N, S, -1)
         return src, output
     
 class ConvolNet(nn.Module):
